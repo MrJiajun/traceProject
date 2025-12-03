@@ -6,31 +6,33 @@ const loadingModal = document.getElementById('loadingModal');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const sidebar = document.querySelector('aside');
 
-// 模拟后端API调用
+// 调用后端API
 async function callAIAPI(prompt, temperature = 0.7, maxTokens = 512) {
   // 显示加载状态
   loadingModal.classList.remove('hidden');
   
   try {
-    // 模拟网络延迟
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        temperature: temperature,
+        max_tokens: maxTokens
+      })
+    });
     
-    // 模拟不同温度参数下的AI响应
-    const responses = {
-      low: "我可以协助信息检索、内容创作和问题解决。我的能力包括回答问题、生成文本以及根据提供的输入帮助完成各种任务。今天我能为您提供什么帮助？",
-      medium: "我旨在帮助完成各种任务！无论您需要回答问题、帮助写作、解释复杂概念，甚至协助编码 - 都可以随时问我。您想处理什么问题？",
-      high: "哦，我可以做各种有趣和有用的事情！要我写首诗吗？用五岁小孩都能懂的方式解释量子物理？生成素食千层面的食谱？或者帮您调试代码？告诉我您需要什么，我会尽力而为！"
-    };
+    if (!response.ok) {
+      throw new Error('API请求失败');
+    }
     
-    let response;
-    if (temperature < 0.3) response = responses.low;
-    else if (temperature < 0.7) response = responses.medium;
-    else response = responses.high;
-    
-    return response;
+    const data = await response.json();
+    return data.response;
   } catch (error) {
-    console.error('API调用失败:', error);
-    return "抱歉，我无法处理您的请求。请稍后再试。";
+    console.error('API调用错误:', error);
+    return '抱歉，处理您的请求时发生了错误。请稍后重试。';
   } finally {
     // 隐藏加载状态
     loadingModal.classList.add('hidden');
