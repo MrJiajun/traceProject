@@ -2,13 +2,6 @@
   .content-auto {
     content-visibility: auto;
   }
-  .scrollbar-hide {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
   .text-balance {
     text-wrap: balance;
   }
@@ -21,6 +14,8 @@
 .message-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(66, 133, 244, 0.5) transparent;
+  overflow-y: auto;
+  padding-right: 2px;
 }
 
 .message-scroll::-webkit-scrollbar {
@@ -43,40 +38,27 @@
   background-color: rgba(66, 133, 244, 0.7);
 }
 
-/* 确保滚动条不影响内容布局 */
-.message-scroll {
-  overflow-y: auto;
-  padding-right: 2px;
-}
-
-/* 自定义滚动条样式 */
-.message-scroll {
+/* 聊天容器滚动条样式 */
+#chatContainer {
   scrollbar-width: thin;
-  scrollbar-color: rgba(66, 133, 244, 0.5) transparent;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
 }
 
-.message-scroll::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+#chatContainer::-webkit-scrollbar {
+  width: 8px;
 }
 
-.message-scroll::-webkit-scrollbar-track {
+#chatContainer::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
-.message-scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(66, 133, 244, 0.5);
-  border-radius: 3px;
+#chatContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
   border: 2px solid transparent;
 }
 
-.message-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(66, 133, 244, 0.7);
-}
-
-/* 确保滚动条不影响内容布局 */
-.message-scroll {
-  overflow-y: auto;
-  padding-right: 2px;
+#chatContainer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 163, 175, 0.7);
 }
